@@ -149,13 +149,15 @@ public:
 int main()
 {
     // local user entry loop variable
-    std::string loop;
+    char loop;
 
     while (true)
     {
         // local user entry variables
         int choice;
+        std::string str_choice;
         int year;
+        std::string str_year;
         std::string make;
         std::string model;
         std::string bed;
@@ -164,8 +166,39 @@ int main()
         // Get information from user
         std::cout << "\n[1] Truck" << std::endl;
         std::cout << "[2] Car" << std::endl;
-        std::cout << "\nEnter Choice: ";
-        std::cin >> choice;
+        // Validation
+        while (true)
+        {
+            // Get valid integer input with try catch
+            try
+            {
+                // Prompt user
+                std::cout << "\nEnter Choice: ";
+                std::cin >> str_choice;
+                // Cast string input to integer. If double, it truncates it
+                // If it is a non numberic string, an exception is thrown
+                choice = std::stoi(str_choice);
+            }
+            catch (...)
+            {
+                std::cout << "Please enter a whole number." << std::endl;
+                // Start the loop over
+                continue;
+            }
+            // Input validation to keep input in a valid range with if statements
+            // Is the integer a positive number?
+            if (choice != 1 && choice != 2)
+            {
+                std::cout << "Please enter either 1 or 2." << std::endl;
+                // Start the loop over
+                continue;
+            }
+            else
+            {
+                // Break out the loop with valid input
+                break;
+            }
+        }
 
         if (choice == 1)
         {
@@ -177,8 +210,40 @@ int main()
             std::cout << "\nYou chose Car" << std::endl;
         }
 
-        std::cout << "\nEnter year: ";
-        std::cin >> year;
+        // Validation
+        while (true)
+        {
+            // Get valid integer input with try catch
+            try
+            {
+                // Prompt user
+                std::cout << "\nEnter year: ";
+                std::cin >> str_year;
+                // Cast string input to integer. If double, it truncates it
+                // If it is a non numberic string, an exception is thrown
+                year = std::stoi(str_year);
+            }
+            catch (...)
+            {
+                std::cout << "Please enter a whole number." << std::endl;
+                // Start the loop over
+                continue;
+            }
+            // Input validation to keep input in a valid range with if statements
+            // Is the integer a positive number?
+            if (year < 1900 || year > 2023)
+            {
+                std::cout << "Please enter a year between 1900 and 2023." << std::endl;
+                // Start the loop over
+                continue;
+            }
+            else
+            {
+                // Break out the loop with valid input
+                break;
+            }
+        }
+
         std::cout << "\nEnter make: ";
         std::cin >> make;
         std::cout << "\nEnter model: ";
@@ -218,14 +283,33 @@ int main()
                     << car.storage() << " storage." << std::endl;
         }
         
-        std::cout << "\n\nNew vehicle? (y/n): ";
-        std::cin >> loop;
+        std::cout << std::endl << std::endl;
 
-        if (loop == "y")
+        // Validation
+        while(true)
+        {
+            // Prompt user to run the program again
+            std::cout << "New vehicle? (y/n): ";
+            std::cin >> loop;
+            loop = std::tolower(loop);
+            //  Is the input S, M, or L
+            if (loop != 'y' && loop != 'n')
+            {
+                std::cout << "\nPlease enter a (y/n).\n" << std::endl;
+                // Start the loop over
+                continue;
+            }
+            else {
+                // Break out of the loop with valid input
+                break;
+            }
+        }
+        
+        if (loop == 'y')
         {
             continue;
         }
-        else if (loop == "n")
+        else if (loop == 'n')
         {
             break;
         }
