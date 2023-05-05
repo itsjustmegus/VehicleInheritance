@@ -82,7 +82,8 @@ public:
     /************ PUBLIC MEMBER FUNCTIONS ************/
     // Derived class constructor calls base class constructor
     // Derived class parameter is passed to the base class
-    Truck(int year, std::string make, std::string model, std::string bed) : Vehicle(year, make, model) {
+    Truck(int year, std::string make, std::string model, std::string bed) : Vehicle(year, make, model)
+    {
         m_bed = bed;
     }
     // Override the start() method from the Vehicle base class
@@ -110,20 +111,70 @@ public:
 
 int main()
 {
-    // Create an object of the derived Anaconda class
-    Truck truck(2016, "Chevy", "Silverado", "short");
-    // Call methods of the derived class
-    truck.start();
-    truck.drive();
-    std::cout << "You own a " << truck.year()
-              << " " << truck.make() << " "
-              << truck.model() << " with a "
-              << truck.bed() << " bed." << std::endl;
-    truck.year(2018);
-    std::cout << "You own a " << truck.year()
-              << " " << truck.make() << " "
-              << truck.model() << " with a "
-              << truck.bed() << " bed." << std::endl;
+    // local user entry loop variable
+    std::string loop;
+
+    while (true)
+    {
+        // local user entry variables
+        int choice;
+        int year;
+        std::string make;
+        std::string model;
+        std::string bed;
+
+        // Get information from user
+        std::cout << "\n[1] Truck" << std::endl;
+        std::cout << "[2] Car" << std::endl;
+        std::cout << "\nEnter Choice: ";
+        std::cin >> choice;
+
+        if (choice == 1)
+        {
+            std::cout << "\nYou chose Truck" << std::endl;
+        }
+
+        else if (choice == 2)
+        {
+            std::cout << "\nYou chose Car" << std::endl;
+        }
+
+        std::cout << "\nEnter year: ";
+        std::cin >> year;
+        std::cout << "\nEnter make: ";
+        std::cin >> make;
+        std::cout << "\nEnter model: ";
+        std::cin >> model;
+
+        if (choice == 1)
+        {
+            std::cout << "\nEnter bed type: ";
+            std::cin >> bed;
+            std::cout << std::endl;
+
+            // Create an object of the derived Anaconda class
+            Truck truck(year, make, model, bed);
+            // Call methods of the derived class
+            truck.start();
+            truck.drive();
+            std::cout << "\nYou own a " << truck.year()
+                    << " " << truck.make() << " "
+                    << truck.model() << " with a "
+                    << truck.bed() << " bed." << std::endl;
+        }
+        
+        std::cout << "\n\nNew vehicle? (y/n): ";
+        std::cin >> loop;
+
+        if (loop == "y")
+        {
+            continue;
+        }
+        else if (loop == "n")
+        {
+            break;
+        }
+    }
 
     return 0;
 }
