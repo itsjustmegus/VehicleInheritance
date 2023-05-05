@@ -108,6 +108,43 @@ public:
     }
 };
 
+// Derived class
+class Car : public Vehicle
+{
+
+private:
+    std::string m_storage;
+
+public:
+    /************ PUBLIC MEMBER FUNCTIONS ************/
+    // Derived class constructor calls base class constructor
+    // Derived class parameter is passed to the base class
+    Car(int year, std::string make, std::string model, std::string storage) : Vehicle(year, make, model)
+    {
+        m_storage = storage;
+    }
+    // Override the start() method from the Vehicle base class
+    void start()
+    {
+        std::cout << "Vvvvvv Vvvvvvvv Vvvvvvvvvvvv!" << std::endl;
+    }
+    // Override the drive() method from the Vehicle base class
+    void drive()
+    {
+        std::cout << m_model << " is cruising at a high speed." << std::endl;
+    }
+    // Getter and setter for storage type
+    std::string storage()
+    {
+        return m_storage;
+    }
+
+    void storage(std::string storage)
+    {
+        m_storage = storage;
+    }
+};
+
 
 int main()
 {
@@ -122,6 +159,7 @@ int main()
         std::string make;
         std::string model;
         std::string bed;
+        std::string storage;
 
         // Get information from user
         std::cout << "\n[1] Truck" << std::endl;
@@ -161,6 +199,23 @@ int main()
                     << " " << truck.make() << " "
                     << truck.model() << " with a "
                     << truck.bed() << " bed." << std::endl;
+        }
+
+        else if (choice == 2)
+        {
+            std::cout << "\nEnter storage type: ";
+            std::cin >> storage;
+            std::cout << std::endl;
+
+            // Create an object of the derived Anaconda class
+            Car car(year, make, model, storage);
+            // Call methods of the derived class
+            car.start();
+            car.drive();
+            std::cout << "\nYou own a " << car.year()
+                    << " " << car.make() << " "
+                    << car.model() << " with "
+                    << car.storage() << " storage." << std::endl;
         }
         
         std::cout << "\n\nNew vehicle? (y/n): ";
