@@ -71,6 +71,59 @@ public:
     }
 };
 
-int main() {
+// Derived class
+class Truck : public Vehicle
+{
+
+private:
+    std::string m_bed;
+
+public:
+    /************ PUBLIC MEMBER FUNCTIONS ************/
+    // Derived class constructor calls base class constructor
+    // Derived class parameter is passed to the base class
+    Truck(int year, std::string make, std::string model, std::string bed) : Vehicle(year, make, model) {
+        m_bed = bed;
+    }
+    // Override the start() method from the Vehicle base class
+    void start()
+    {
+        std::cout << "Vvvvvv chkckckaaaaa Vvvvvvvv Vvvvvvvv!" << std::endl;
+    }
+    // Override the drive() method from the Vehicle base class
+    void drive()
+    {
+        std::cout << "Your " << m_model << " is transporting a heavy load." << std::endl;
+    }
+    // Getter and setter for bed type
+    std::string bed()
+    {
+        return m_bed;
+    }
+
+    void bed(std::string bed)
+    {
+        m_bed = bed;
+    }
+};
+
+
+int main()
+{
+    // Create an object of the derived Anaconda class
+    Truck truck(2016, "Chevy", "Silverado", "short");
+    // Call methods of the derived class
+    truck.start();
+    truck.drive();
+    std::cout << "You own a " << truck.year()
+              << " " << truck.make() << " "
+              << truck.model() << " with a "
+              << truck.bed() << " bed." << std::endl;
+    truck.year(2018);
+    std::cout << "You own a " << truck.year()
+              << " " << truck.make() << " "
+              << truck.model() << " with a "
+              << truck.bed() << " bed." << std::endl;
+
     return 0;
 }
