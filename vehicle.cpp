@@ -1,7 +1,8 @@
 /*
  * Name: vehicle.cpp
- * Author: Augustus Allred
+ * Author: Gus Allred
  * Created: 5/5/23
+ * Revised: 4/30/24
  * Purpose: Vehicle inheritance
  */
 
@@ -71,6 +72,7 @@ public:
     }
 };
 
+
 // Derived class
 class Truck : public Vehicle
 {
@@ -107,6 +109,7 @@ public:
         m_bed = bed;
     }
 };
+
 
 // Derived class
 class Car : public Vehicle
@@ -146,6 +149,44 @@ public:
 };
 
 
+// Derived class
+class Motorcycle : public Vehicle
+{
+
+private:
+    std::string m_engine;
+
+public:
+    /************ PUBLIC MEMBER FUNCTIONS ************/
+    // Derived class constructor calls base class constructor
+    // Derived class parameter is passed to the base class
+    Motorcycle(int year, std::string make, std::string model, std::string engine) : Vehicle(year, make, model)
+    {
+        m_engine = engine;
+    }
+    // Override the start() method from the Vehicle base class
+    void start()
+    {
+        std::cout << "kahoo-kahoo-kahoo-kaWOOahuhukaWrrrrrooyooyooha-kahoo-kahoo!" << std::endl;
+    }
+    // Override the drive() method from the Vehicle base class
+    void drive()
+    {
+        std::cout << "Your " << m_model << " is flying down the interstate. Be careful, man!" << std::endl;
+    }
+    // Getter and setter for bed type
+    std::string engine()
+    {
+        return m_engine;
+    }
+
+    void bed(std::string engine)
+    {
+        m_engine = engine;
+    }
+};
+
+
 int main()
 {
     // local user entry loop variable
@@ -162,10 +203,12 @@ int main()
         std::string model;
         std::string bed;
         std::string storage;
+        std::string engine;
 
         // Get information from user
         std::cout << "\n[1] Truck" << std::endl;
         std::cout << "[2] Car" << std::endl;
+        std::cout << "[3] Motorcycle" << std::endl;
         // Validation
         while (true)
         {
@@ -174,7 +217,7 @@ int main()
             {
                 // Prompt user
                 std::cout << "\nEnter Choice: ";
-                std::cin >> str_choice;
+                std::getline(std::cin, str_choice);
                 // Cast string input to integer. If double, it truncates it
                 // If it is a non numberic string, an exception is thrown
                 choice = std::stoi(str_choice);
@@ -187,9 +230,9 @@ int main()
             }
             // Input validation to keep input in a valid range with if statements
             // Is the integer a positive number?
-            if (choice != 1 && choice != 2)
+            if (choice < 1 || choice > 3)
             {
-                std::cout << "Please enter either 1 or 2." << std::endl;
+                std::cout << "Please enter either 1, 2, or 3." << std::endl;
                 // Start the loop over
                 continue;
             }
@@ -210,6 +253,11 @@ int main()
             std::cout << "\nYou chose Car" << std::endl;
         }
 
+        else if (choice == 3)
+        {
+            std::cout << "\nYou chose Motorcycle" << std::endl;
+        }
+
         // Validation
         while (true)
         {
@@ -218,7 +266,7 @@ int main()
             {
                 // Prompt user
                 std::cout << "\nEnter year: ";
-                std::cin >> str_year;
+                std::getline(std::cin, str_year);
                 // Cast string input to integer. If double, it truncates it
                 // If it is a non numberic string, an exception is thrown
                 year = std::stoi(str_year);
@@ -231,9 +279,9 @@ int main()
             }
             // Input validation to keep input in a valid range with if statements
             // Is the integer a positive number?
-            if (year < 1900 || year > 2023)
+            if (year < 1900 || year > 2024)
             {
-                std::cout << "Please enter a year between 1900 and 2023." << std::endl;
+                std::cout << "Please enter a year between 1900 and 2024." << std::endl;
                 // Start the loop over
                 continue;
             }
@@ -245,14 +293,14 @@ int main()
         }
 
         std::cout << "\nEnter make: ";
-        std::cin >> make;
+        std::getline(std::cin, make);
         std::cout << "\nEnter model: ";
-        std::cin >> model;
+        std::getline(std::cin, model);
 
         if (choice == 1)
         {
             std::cout << "\nEnter bed type: ";
-            std::cin >> bed;
+            std::getline(std::cin, bed);
             std::cout << std::endl;
 
             // Create an object of the derived Anaconda class
@@ -269,7 +317,7 @@ int main()
         else if (choice == 2)
         {
             std::cout << "\nEnter storage type: ";
-            std::cin >> storage;
+            std::getline(std::cin, storage);
             std::cout << std::endl;
 
             // Create an object of the derived Anaconda class
@@ -281,6 +329,23 @@ int main()
                     << " " << car.make() << " "
                     << car.model() << " with "
                     << car.storage() << " storage." << std::endl;
+        }
+        
+        else if (choice == 3)
+        {
+            std::cout << "\nEnter engine type: ";
+            std::getline(std::cin, engine);
+            std::cout << std::endl;
+
+            // Create an object of the derived Anaconda class
+            Motorcycle motorcycle(year, make, model, engine);
+            // Call methods of the derived class
+            motorcycle.start();
+            motorcycle.drive();
+            std::cout << "\nYou own a " << motorcycle.year()
+                    << " " << motorcycle.make() << " "
+                    << motorcycle.model() << " with a "
+                    << motorcycle.engine() << " engine." << std::endl;
         }
         
         std::cout << std::endl << std::endl;
